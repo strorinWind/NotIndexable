@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">ShareE</string>
+
+    <integer name="com_vk_sdk_AppId">7324853</integer>
+
+    <string name="login">Login</string>
+    <string name="str_share_photos_title">Делитесь фотографиями</string>
+    <string name="str_share_photos_subtitle">Поделитесь фотографией на стене, и добавьте к ней описание.</string>
+    <string name="str_choose_photo_btn">Выбрать фото</string>
+    <string name="str_need_permission_title">Необходимо разрешение</string>
+    <string name="str_need_permission_message">Для того, чтобы выбрать файл необходимо разрешение на чтение файлов. Пожалуйста, выдайте необходимые разрешения в настройках.</string>
+    <string name="str_go_to_settings_button">Настройки</string>
+    <string name="str_share_wall_title">Поделиться на стене</string>
+    <string name="str_add_comment_hint">Добавить комментарий</string>
+    <string name="str_send_btn">Отправить</string>
+    <string name="str_error_open_file_toast">Can\'t open file</string>
+    <string name="str_no_image_picked_toast">You haven\'t picked Image</string>
+    <string name="str_error_posting_toast">ERROR! Check your internet connection</string>
+    <string name="str_success_posting_toast">Photo successfully posted</string>
+</resources>
