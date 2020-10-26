@@ -28,11 +28,11 @@ object CameraHelper {
             Images.Media.DATE_ADDED
         )
 
-        val selection = "${Images.ImageColumns.DATE_ADDED} >= ?"
+        val selection = "${Images.ImageColumns.DATE_ADDED} <= ?"
 
         val sortOrder = "${Images.Media.DISPLAY_NAME} ASC"
         val selectionArgs = arrayOf(
-            TimeUnit.DAYS.toSeconds(days).toString()
+            (System.currentTimeMillis() - TimeUnit.DAYS.toMillis(days)).toString()
         )
 
         val query = context.contentResolver.query(

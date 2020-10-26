@@ -18,4 +18,6 @@
     <string name="str_no_image_picked_toast">You haven\'t picked Image</string>
     <string name="str_error_posting_toast">ERROR! Check your internet connection</string>
     <string name="str_success_posting_toast">Photo successfully posted</string>
+
+    <string name="str_tell_about_memory">Расскажите, что происходило %s</string>
 </resources>

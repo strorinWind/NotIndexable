@@ -1,4 +1,4 @@
-package ru.strorin.shareE
+package ru.strorin.shareE.utils
 
 import android.content.Context
 import android.net.Uri

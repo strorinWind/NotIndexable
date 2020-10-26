@@ -18,7 +18,8 @@ class VKWallPostCommand(private val message: String? = null,
                         private val photos: List<Uri> = listOf(),
                         private val ownerId: Int = 0,
                         private val friendsOnly: Boolean = false,
-                        private val fromGroup: Boolean = false): ApiCommand<Int>() {
+                        private val fromGroup: Boolean = false
+) : ApiCommand<Int>() {
     override fun onExecute(manager: VKApiManager): Int {
         val callBuilder = VKMethodCall.Builder()
             .method("wall.post")

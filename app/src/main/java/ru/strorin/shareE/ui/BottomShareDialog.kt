@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKApiCallback
-import ru.strorin.shareE.PathUtils
+import ru.strorin.shareE.utils.PathUtils
 import ru.strorin.shareE.R
 import ru.strorin.shareE.requests.VKWallPostCommand
 
@@ -25,11 +25,13 @@ class BottomShareDialog: BottomSheetDialogFragment() {
     private lateinit var progress: ProgressBar
 
     private lateinit var imageUri: Uri
+    private var commentStringHint: String = ""
 
     companion object {
-        fun newInstance(imageUri: Uri): BottomShareDialog {
+        fun newInstance(imageUri: Uri, commentString: String = ""): BottomShareDialog {
             val dialog = BottomShareDialog()
             dialog.imageUri = imageUri
+            dialog.commentStringHint = commentString
             return dialog
         }
 
@@ -46,6 +48,9 @@ class BottomShareDialog: BottomSheetDialogFragment() {
         sendButton = view.findViewById(R.id.send_button)
         image = view.findViewById(R.id.image_view)
         commentEditText = view.findViewById(R.id.comment_edit_text)
+        if (commentStringHint != "") {
+            commentEditText.hint = commentStringHint
+        }
         progress = view.findViewById(R.id.progress_bar)
         return view
     }

@@ -1,32 +1,35 @@
 package ru.strorin.shareE.ui
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import ru.strorin.shareE.R
-import android.content.Intent
-import android.net.Uri
-import android.provider.Settings
-import androidx.appcompat.app.AlertDialog
-import ru.strorin.shareE.BuildConfig
-import ru.strorin.shareE.permission.PermissionUtils
-import android.widget.Toast
-import android.graphics.BitmapFactory
-import android.app.Activity
+import com.google.android.material.internal.ContextUtils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import ru.strorin.shareE.BuildConfig
+import ru.strorin.shareE.R
 import ru.strorin.shareE.image.CameraHelper
-import java.lang.Exception
-import java.lang.IllegalStateException
+import ru.strorin.shareE.image.Image
+import ru.strorin.shareE.permission.PermissionUtils
+import ru.strorin.shareE.utils.getLocale
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -89,11 +92,23 @@ class SharePostFragment: Fragment() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ image ->
-                    showBottomShareDialog(image.uri)
+                    //TODO: handle if no image
+                    openHistoryImage(image)
                 }, { e ->
                     //TODO: handle error
                 })
             compositeDisposable.add(disposable)
+        }
+    }
+
+    private fun openHistoryImage(image: Image) {
+        if (image.date != 0L) {
+            val locale = getLocale(context)
+            val date = SimpleDateFormat("dd MMM y", locale).format(Date(image.date * 1000))
+            val hint = context?.getString(R.string.str_tell_about_memory, date) ?: ""
+            showBottomShareDialog(image.uri, hint)
+        } else {
+            showBottomShareDialog(image.uri)
         }
     }
 
@@ -109,8 +124,8 @@ class SharePostFragment: Fragment() {
         }
     }
 
-    private fun showBottomShareDialog(uri: Uri) {
-        val bottomInfoDialog = BottomShareDialog.newInstance(uri)
+    private fun showBottomShareDialog(uri: Uri, hint: String = "") {
+        val bottomInfoDialog = BottomShareDialog.newInstance(uri, hint)
         if (isAdded) {
             bottomInfoDialog.show(parentFragmentManager, "BOTTOM")
         }
