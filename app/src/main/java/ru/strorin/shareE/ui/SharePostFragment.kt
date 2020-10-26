@@ -20,13 +20,23 @@ import ru.strorin.shareE.permission.PermissionUtils
 import android.widget.Toast
 import android.graphics.BitmapFactory
 import android.app.Activity
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import ru.strorin.shareE.image.CameraHelper
 import java.lang.Exception
 import java.lang.IllegalStateException
+import java.util.*
 
 
 class SharePostFragment: Fragment() {
 
     private lateinit var shareButton: LinearLayout
+    private lateinit var shareRandomButton: LinearLayout
+
+    private val compositeDisposable = CompositeDisposable()
+
 
     companion object {
         fun newInstance(): SharePostFragment {
@@ -34,6 +44,7 @@ class SharePostFragment: Fragment() {
         }
 
         private const val PERMISSIONS_REQUEST_READ_FILES_STANDARD = 100
+        private const val PERMISSIONS_REQUEST_READ_FILES_RANDOM = 101
         private const val OPEN_SETTINGS_REQUEST = 200
         private const val PICK_IMAGE = 300
     }
@@ -45,6 +56,7 @@ class SharePostFragment: Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.create_post_fragment, container, false)
         shareButton = view.findViewById(R.id.share_button)
+        shareRandomButton = view.findViewById(R.id.share_random_button)
         return view
     }
 
@@ -52,7 +64,12 @@ class SharePostFragment: Fragment() {
         super.onStart()
         shareButton.setOnClickListener {
             context?.let {
-                checkForPermission(it)
+                checkForPermission(it, PERMISSIONS_REQUEST_READ_FILES_STANDARD, ::chooseImage)
+            }
+        }
+        shareRandomButton.setOnClickListener {
+            context?.let {
+                checkForPermission(it, PERMISSIONS_REQUEST_READ_FILES_RANDOM, ::chooseRandomImage)
             }
         }
     }
@@ -64,18 +81,38 @@ class SharePostFragment: Fragment() {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE)
     }
 
+    private fun chooseRandomImage() {
+        //TODO: show progress somehow while search
+        context?.let { ctx ->
+            val disposable = Single
+                .fromCallable { CameraHelper.getRandomCameraImage(ctx) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ image ->
+                    showBottomShareDialog(image.uri)
+                }, { e ->
+                    //TODO: handle error
+                })
+            compositeDisposable.add(disposable)
+        }
+    }
+
     private fun showBottomShareDialogIfPossible(context: Context, data: Intent?){
         try {
             val imageUri = data?.data ?: throw IllegalStateException()
             val imageStream = context.contentResolver.openInputStream(imageUri)
             val selectedImage = BitmapFactory.decodeStream(imageStream) ?: throw IllegalStateException()
-            val bottomInfoDialog = BottomShareDialog.newInstance(imageUri)
-            if (isAdded) {
-                bottomInfoDialog.show(parentFragmentManager, "BOTTOM")
-            }
+            showBottomShareDialog(imageUri)
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(context, getString(R.string.str_error_open_file_toast), Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun showBottomShareDialog(uri: Uri) {
+        val bottomInfoDialog = BottomShareDialog.newInstance(uri)
+        if (isAdded) {
+            bottomInfoDialog.show(parentFragmentManager, "BOTTOM")
         }
     }
 
@@ -112,7 +149,7 @@ class SharePostFragment: Fragment() {
         startActivityForResult(appSettingsIntent, OPEN_SETTINGS_REQUEST)
     }
 
-    private fun checkForPermission(ctx: Context) {
+    private fun checkForPermission(ctx: Context, requestCode: Int, action: () -> Unit) {
 
         if (ContextCompat.checkSelfPermission(ctx,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -123,19 +160,24 @@ class SharePostFragment: Fragment() {
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 showNeverAskAgainDialog()
             } else {
-                requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), PERMISSIONS_REQUEST_READ_FILES_STANDARD)
+                requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), requestCode)
             }
         } else {
-            chooseImage()
+            action()
         }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
-            PERMISSIONS_REQUEST_READ_FILES_STANDARD -> {
+            PERMISSIONS_REQUEST_READ_FILES_STANDARD,
+            PERMISSIONS_REQUEST_READ_FILES_RANDOM -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    chooseImage()
+                    if (requestCode == PERMISSIONS_REQUEST_READ_FILES_STANDARD) {
+                        chooseImage()
+                    } else {
+                        chooseRandomImage()
+                    }
                 } else {
                     context?.let {
                         PermissionUtils.setShouldShowStatus(it, Manifest.permission.READ_EXTERNAL_STORAGE)

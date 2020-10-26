@@ -65,26 +65,41 @@ class BottomShareDialog: BottomSheetDialogFragment() {
         sendButton.setOnClickListener { }
         progress.visibility = View.VISIBLE
         context?.let {
-            VK.execute(
-                VKWallPostCommand(
-                    commentEditText.text.toString(),
-                    arrayListOf(Uri.parse(PathUtils.getPath(it, imageUri)))
-                ), object : VKApiCallback<Int> {
-                    override fun fail(error: Exception) {
-                        Toast.makeText(context!!, getString(R.string.str_error_posting_toast), Toast.LENGTH_SHORT).show()
-                        progress.visibility = View.GONE
-                        sendButton.setOnClickListener {
-                            tryToPostPhoto()
-                        }
-                    }
-
-                    override fun success(result: Int){
-                        Toast.makeText(context!!, getString(R.string.str_success_posting_toast), Toast.LENGTH_SHORT).show()
-                        dismissAllowingStateLoss()
-                    }
-                }
-            )
+            executeVkCommandsToPostPhoto(it)
         }
+    }
+
+    private fun executeVkCommandsToPostPhoto(ctx: Context) {
+        val callback = object : VKApiCallback<Int> {
+            override fun fail(error: Exception) {
+                Toast.makeText(
+                    ctx,
+                    getString(R.string.str_error_posting_toast),
+                    Toast.LENGTH_SHORT
+                ).show()
+                progress.visibility = View.GONE
+                sendButton.setOnClickListener {
+                    tryToPostPhoto()
+                }
+            }
+
+            override fun success(result: Int){
+                Toast.makeText(
+                    ctx,
+                    getString(R.string.str_success_posting_toast),
+                    Toast.LENGTH_SHORT
+                ).show()
+                dismissAllowingStateLoss()
+            }
+        }
+
+        VK.execute(
+            VKWallPostCommand(
+                commentEditText.text.toString(),
+                arrayListOf(Uri.parse(PathUtils.getPath(ctx, imageUri)))
+            ),
+            callback
+        )
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

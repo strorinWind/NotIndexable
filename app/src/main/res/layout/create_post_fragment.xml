@@ -63,6 +63,28 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/share_random_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/str_share_memory"
+                android:textColor="@color/blueButton"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <View

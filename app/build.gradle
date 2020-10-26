@@ -54,4 +54,7 @@ dependencies {
 
     implementation "com.vk:androidsdk:$versions.vk"
     implementation "com.github.bumptech.glide:glide:$versions.glide"
+
+    implementation "io.reactivex.rxjava3:rxjava:3.0.7"
+    implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
 }

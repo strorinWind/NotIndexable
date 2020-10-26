@@ -7,6 +7,7 @@
     <string name="str_share_photos_title">Делитесь фотографиями</string>
     <string name="str_share_photos_subtitle">Поделитесь фотографией на стене, и добавьте к ней описание.</string>
     <string name="str_choose_photo_btn">Выбрать фото</string>
+    <string name="str_share_memory">Поделиться воспоминанием</string>
     <string name="str_need_permission_title">Необходимо разрешение</string>
     <string name="str_need_permission_message">Для того, чтобы выбрать файл необходимо разрешение на чтение файлов. Пожалуйста, выдайте необходимые разрешения в настройках.</string>
     <string name="str_go_to_settings_button">Настройки</string>
