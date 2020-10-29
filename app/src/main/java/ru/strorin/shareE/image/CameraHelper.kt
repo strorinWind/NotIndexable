@@ -3,8 +3,10 @@ package ru.strorin.shareE.image
 import android.content.ContentUris
 import android.content.Context
 import android.net.Uri
+import android.provider.MediaStore
 import android.provider.MediaStore.Images
-import java.util.concurrent.TimeUnit
+import io.reactivex.rxjava3.core.Single
+import java.util.*
 
 
 data class Image(val uri: Uri,
@@ -14,11 +16,15 @@ data class Image(val uri: Uri,
 
 object CameraHelper {
 
+    fun getRandomCameraImageSingle(context: Context): Single<Image> {
+        return Single.fromCallable { getRandomCameraImage(context) }
+    }
+
     fun getRandomCameraImage(context: Context): Image {
         return getImageListFromCameraFolderOlderThan(context, 6).random()
     }
 
-    private fun getImageListFromCameraFolderOlderThan(context: Context, days: Long): List<Image> {
+    private fun getImageListFromCameraFolderOlderThan(context: Context, days: Int): List<Image> {
         val imageList = mutableListOf<Image>()
 
         val projection = arrayOf(
@@ -27,12 +33,14 @@ object CameraHelper {
             Images.Media.MIME_TYPE,
             Images.Media.DATE_ADDED
         )
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.DATE, -days)
 
-        val selection = "${Images.ImageColumns.DATE_ADDED} <= ?"
+        val selection = "${MediaStore.MediaColumns.DATE_ADDED} <= ?"
 
         val sortOrder = "${Images.Media.DISPLAY_NAME} ASC"
         val selectionArgs = arrayOf(
-            (System.currentTimeMillis() - TimeUnit.DAYS.toMillis(days)).toString()
+            "" + cal.time.time/1000
         )
 
         val query = context.contentResolver.query(

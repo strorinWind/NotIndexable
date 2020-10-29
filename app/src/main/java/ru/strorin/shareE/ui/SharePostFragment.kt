@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -18,11 +17,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.google.android.material.internal.ContextUtils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.android.synthetic.main.create_post_fragment.*
 import ru.strorin.shareE.BuildConfig
 import ru.strorin.shareE.R
 import ru.strorin.shareE.image.CameraHelper
@@ -77,6 +76,11 @@ class SharePostFragment: Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.clear()
+    }
+
     private fun chooseImage(){
         val intent = Intent()
         intent.type = "image/*"
@@ -85,20 +89,25 @@ class SharePostFragment: Fragment() {
     }
 
     private fun chooseRandomImage() {
-        //TODO: show progress somehow while search
-        context?.let { ctx ->
-            val disposable = Single
-                .fromCallable { CameraHelper.getRandomCameraImage(ctx) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ image ->
-                    //TODO: handle if no image
-                    openHistoryImage(image)
-                }, { e ->
-                    //TODO: handle error
-                })
-            compositeDisposable.add(disposable)
-        }
+        val ctx = context ?: return
+        showProgressState(true)
+
+        val disposable = CameraHelper
+            .getRandomCameraImageSingle(ctx)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ image ->
+                showProgressState(false)
+                openHistoryImage(image)
+            }, { e ->
+                showProgressState(false)
+                Toast.makeText(
+                    ctx,
+                    getString(R.string.str_error_no_old_photos),
+                    Toast.LENGTH_SHORT
+                ).show()
+            })
+        compositeDisposable.add(disposable)
     }
 
     private fun openHistoryImage(image: Image) {
@@ -110,6 +119,14 @@ class SharePostFragment: Fragment() {
         } else {
             showBottomShareDialog(image.uri)
         }
+    }
+
+    private fun showProgressState(progress: Boolean) {
+        icon_share.visibility = if (progress) View.GONE else View.VISIBLE
+        progress_bar.visibility = if (progress) View.VISIBLE else View.GONE
+
+        shareButton.isEnabled = !progress
+        shareRandomButton.isEnabled = !progress
     }
 
     private fun showBottomShareDialogIfPossible(context: Context, data: Intent?){

@@ -1,5 +1,6 @@
 package ru.strorin.shareE.ui
 
+import android.app.Dialog
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -8,12 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKApiCallback
-import ru.strorin.shareE.utils.PathUtils
 import ru.strorin.shareE.R
 import ru.strorin.shareE.requests.VKWallPostCommand
+import ru.strorin.shareE.utils.PathUtils
 
 
 class BottomShareDialog: BottomSheetDialogFragment() {
@@ -43,6 +46,8 @@ class BottomShareDialog: BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        expandAfterCreating(dialog)
+
         val view = inflater.inflate(R.layout.share_bottom_sheet, container, false)
         closeButton = view.findViewById(R.id.close_button)
         sendButton = view.findViewById(R.id.send_button)
@@ -127,6 +132,16 @@ class BottomShareDialog: BottomSheetDialogFragment() {
     }
 
     private fun loadImage(context: Context) {
-        Glide.with(context).load(imageUri).into(image);
+        Glide.with(context).load(imageUri).into(image)
+    }
+
+    private fun expandAfterCreating(dialog: Dialog?) {
+        dialog?.setOnShowListener { dlg ->
+            val d = dlg as? BottomSheetDialog ?: return@setOnShowListener
+            val bottomSheetInternal =
+                d.findViewById<View>(R.id.design_bottom_sheet) ?: return@setOnShowListener
+            BottomSheetBehavior.from<View?>(bottomSheetInternal).state =
+                BottomSheetBehavior.STATE_EXPANDED
+        }
     }
 }

@@ -20,4 +20,5 @@
     <string name="str_success_posting_toast">Photo successfully posted</string>
 
     <string name="str_tell_about_memory">Расскажите, что происходило %s</string>
+    <string name="str_error_no_old_photos">К сожалению, у вас нет старых фотографий.</string>
 </resources>
