@@ -1,4 +1,4 @@
-package ru.strorin.shareE.ui
+package ru.strorin.shareE.ui.share
 
 import android.Manifest
 import android.app.Activity
@@ -17,8 +17,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.create_post_fragment.*
@@ -66,12 +66,14 @@ class SharePostFragment: Fragment() {
         super.onStart()
         shareButton.setOnClickListener {
             context?.let {
-                checkForPermission(it, PERMISSIONS_REQUEST_READ_FILES_STANDARD, ::chooseImage)
+                checkForPermission(it,
+                    PERMISSIONS_REQUEST_READ_FILES_STANDARD, ::chooseImage)
             }
         }
         shareRandomButton.setOnClickListener {
             context?.let {
-                checkForPermission(it, PERMISSIONS_REQUEST_READ_FILES_RANDOM, ::chooseRandomImage)
+                checkForPermission(it,
+                    PERMISSIONS_REQUEST_READ_FILES_RANDOM, ::chooseRandomImage)
             }
         }
     }
@@ -81,11 +83,19 @@ class SharePostFragment: Fragment() {
         compositeDisposable.clear()
     }
 
+    private fun goToGroups() {
+        val action = SharePostFragmentDirections
+            .actionSharePostFragmentToGroupListFragment()
+        findNavController().navigate(action)
+    }
+
     private fun chooseImage(){
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_PICK
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE)
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"),
+            PICK_IMAGE
+        )
     }
 
     private fun chooseRandomImage() {
@@ -178,7 +188,9 @@ class SharePostFragment: Fragment() {
             Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
             Uri.parse("package:" + BuildConfig.APPLICATION_ID)
         )
-        startActivityForResult(appSettingsIntent, OPEN_SETTINGS_REQUEST)
+        startActivityForResult(appSettingsIntent,
+            OPEN_SETTINGS_REQUEST
+        )
     }
 
     private fun checkForPermission(ctx: Context, requestCode: Int, action: () -> Unit) {

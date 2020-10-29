@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply from: "../dependencies.gradle"
-
+apply plugin: "androidx.navigation.safeargs"
 
 android {
     signingConfigs {
@@ -51,6 +51,11 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$versions.fragmentKtx"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
     implementation "com.google.android.material:material:$versions.material"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$versions.nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$versions.nav_version"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$versions.nav_version"
 
     implementation "com.vk:androidsdk:$versions.vk"
     implementation "com.github.bumptech.glide:glide:$versions.glide"

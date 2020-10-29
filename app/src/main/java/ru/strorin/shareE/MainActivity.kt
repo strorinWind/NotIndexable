@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import ru.strorin.shareE.ui.SharePostFragment
+import ru.strorin.shareE.ui.share.SharePostFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,8 +19,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container, SharePostFragment.newInstance())
-            .commitNow()
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.container, SharePostFragment.newInstance())
+//            .commitNow()
     }
 }

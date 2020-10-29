@@ -12,7 +12,7 @@ import com.vk.api.sdk.auth.VKScope
 
 class WelcomeActivity: Activity() {
 
-    private val permissions = arrayListOf(VKScope.WALL, VKScope.PHOTOS)
+    private val permissions = arrayListOf(VKScope.WALL, VKScope.PHOTOS, VKScope.GROUPS)
 
     private val vkAuthCallback = object: VKAuthCallback {
 

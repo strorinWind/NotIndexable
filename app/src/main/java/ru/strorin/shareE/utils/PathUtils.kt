@@ -12,8 +12,12 @@ object PathUtils {
         }
         val proj = arrayOf(MediaStore.Images.Media.DATA)
         val cursor = context.contentResolver.query(uri, proj, null, null, null)
-        val columnIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-        cursor.moveToFirst()
-        return "file://" + cursor.getString(columnIndex)
+
+        cursor?.use {
+            val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor.moveToFirst()
+            return "file://" + cursor.getString(columnIndex)
+        }
+        return "file://"
     }
 }

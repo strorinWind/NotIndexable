@@ -21,4 +21,13 @@
 
     <string name="str_tell_about_memory">Расскажите, что происходило %s</string>
     <string name="str_error_no_old_photos">К сожалению, у вас нет старых фотографий.</string>
+    <string name="str_unsibscribe_button">Отписаться</string>
+
+    <string name="str_group_list_subinfo">Коснитесь и удерживайте, чтобы увидеть информацию о сообществе</string>
+    <string name="str_unsubscribe_title">Отписаться от сообществ</string>
+    <string name="str_groups_title">Сообщества</string>
+    <string name="str_open_btn">Открыть</string>
+
+    <string name="str_subscribers_info">%s подписчиков</string>
+    <string name="str_last_post">Последняя запись %s</string>
 </resources>

@@ -1,4 +1,4 @@
-package ru.strorin.shareE.models
+package ru.strorin.shareE.vk.models
 
 class VKSaveInfo(val id: Int,
                  val albumId: Int,

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="105dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="6dp"
+    android:layout_marginRight="6dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp">
+
+    <FrameLayout
+        android:layout_width="105dp"
+        android:layout_height="105dp">
+
+        <View
+            android:id="@+id/background_stroke"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/round_stroke" />
+
+        <ImageView
+            android:id="@+id/group_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/round_outline"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <ImageView
+            android:id="@+id/selected"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="5dp"
+            android:background="@drawable/round_stroke"
+            android:src="@drawable/ic_done_white_24dp" />
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/group_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+</LinearLayout>

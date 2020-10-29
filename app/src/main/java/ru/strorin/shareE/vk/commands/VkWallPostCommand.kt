@@ -1,4 +1,4 @@
-package ru.strorin.shareE.requests
+package ru.strorin.shareE.vk.commands
 
 import android.net.Uri
 import com.vk.api.sdk.VKApiManager
@@ -9,9 +9,9 @@ import com.vk.api.sdk.exceptions.VKApiIllegalResponseException
 import com.vk.api.sdk.internal.ApiCommand
 import org.json.JSONException
 import org.json.JSONObject
-import ru.strorin.shareE.models.VKFileUploadInfo
-import ru.strorin.shareE.models.VKSaveInfo
-import ru.strorin.shareE.models.VKServerUploadInfo
+import ru.strorin.shareE.vk.models.VKFileUploadInfo
+import ru.strorin.shareE.vk.models.VKSaveInfo
+import ru.strorin.shareE.vk.models.VKServerUploadInfo
 import java.util.concurrent.TimeUnit
 
 class VKWallPostCommand(private val message: String? = null,
@@ -89,13 +89,14 @@ class VKWallPostCommand(private val message: String? = null,
     }
 
     private class ServerUploadInfoParser : VKApiResponseParser<VKServerUploadInfo> {
-        override fun parse(response: String): VKServerUploadInfo{
+        override fun parse(response: String): VKServerUploadInfo {
             try {
                 val joResponse = JSONObject(response).getJSONObject("response")
                 return VKServerUploadInfo(
                     uploadUrl = joResponse.getString("upload_url"),
                     albumId = joResponse.getInt("album_id"),
-                    userId = joResponse.getInt("user_id"))
+                    userId = joResponse.getInt("user_id")
+                )
             } catch (ex: JSONException) {
                 throw VKApiIllegalResponseException(ex)
             }
@@ -103,7 +104,7 @@ class VKWallPostCommand(private val message: String? = null,
     }
 
     private class FileUploadInfoParser: VKApiResponseParser<VKFileUploadInfo> {
-        override fun parse(response: String): VKFileUploadInfo{
+        override fun parse(response: String): VKFileUploadInfo {
             try {
                 val joResponse = JSONObject(response)
                 return VKFileUploadInfo(

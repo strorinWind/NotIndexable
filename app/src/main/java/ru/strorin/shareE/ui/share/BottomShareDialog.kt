@@ -1,4 +1,4 @@
-package ru.strorin.shareE.ui
+package ru.strorin.shareE.ui.share
 
 import android.app.Dialog
 import android.content.Context
@@ -15,7 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKApiCallback
 import ru.strorin.shareE.R
-import ru.strorin.shareE.requests.VKWallPostCommand
+import ru.strorin.shareE.vk.commands.VKWallPostCommand
 import ru.strorin.shareE.utils.PathUtils
 
 
@@ -71,7 +71,6 @@ class BottomShareDialog: BottomSheetDialogFragment() {
     }
 
     private fun tryToPostPhoto() {
-        //TODO show progress
         sendButton.setOnClickListener { }
         progress.visibility = View.VISIBLE
         context?.let {

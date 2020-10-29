@@ -1,4 +1,4 @@
-package ru.strorin.shareE.ui
+package ru.strorin.shareE.ui.share
 
 import androidx.lifecycle.ViewModel
 

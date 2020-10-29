@@ -21,4 +21,28 @@
         <item name="android:background">@drawable/rounded_dialog</item>
     </style>
 
+    <style name="CollapsingToolbarLayoutExpandedTextStyle" parent="AppTheme">
+        <item name="android:textColor">@android:color/transparent</item>
+        <item name="android:textSize">0sp</item>
+    </style>
+
+    <style name="CollapsingToolbarLayoutCollapsedTextStyle" parent="AppTheme">
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+
+    </style>
+
+    <style name="BottomDialogBulletTextViewStyle">
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+    </style>
+
+
 </resources>

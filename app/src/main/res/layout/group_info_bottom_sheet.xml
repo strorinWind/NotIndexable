@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="16dp">
+
+        <TextView
+            android:id="@+id/group_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="@style/CollapsingToolbarLayoutCollapsedTextStyle"
+            android:textSize="17sp"
+            android:text="Happy Santa"/>
+
+        <ImageView
+            android:id="@+id/close_button"
+            android:layout_gravity="end"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_cancel_16"
+            android:padding="4dp"
+            android:background="@drawable/grey_button_oval"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/group_population"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_place_outline_20"
+        style="@style/BottomDialogBulletTextViewStyle" />
+
+    <TextView
+        android:id="@+id/article_outline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_article_outline_20"
+        style="@style/BottomDialogBulletTextViewStyle"
+        android:ellipsize="end"
+        android:maxLines="5" />
+
+    <TextView
+        android:id="@+id/last_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_newsfeed_outline_20"
+        style="@style/BottomDialogBulletTextViewStyle" />
+
+    <LinearLayout
+        android:id="@+id/open_button"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_button"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/str_open_btn"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="72dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bottom_line"/>
+
+</LinearLayout>
+

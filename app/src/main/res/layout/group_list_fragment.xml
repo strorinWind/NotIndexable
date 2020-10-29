@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/main.appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/main.collapsing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleTextAppearance="@style/CollapsingToolbarLayoutCollapsedTextStyle"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyle"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="false"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="32dp"
+                android:paddingBottom="16dp"
+                app:layout_collapseMode="parallax">
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Headline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="@string/str_unsubscribe_title"
+                    android:textColor="@color/textColor"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center_horizontal"
+                    android:text="@string/str_group_list_subinfo"
+                    android:textColor="#818C99"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/main.toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+                app:title="@string/str_groups_title"
+                app:titleTextAppearance="@color/textColor" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/group_list_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:clipToPadding="false"
+                android:paddingBottom="84dp"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/bottom_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <ru.strorin.shareE.widgets.ButtonCounter
+            android:id="@+id/unsubscribe_button"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp">
+
+        </ru.strorin.shareE.widgets.ButtonCounter>
+
+        <View
+            android:layout_width="72dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bottom_line" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
