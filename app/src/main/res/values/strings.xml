@@ -30,4 +30,7 @@
 
     <string name="str_subscribers_info">%s подписчиков</string>
     <string name="str_last_post">Последняя запись %s</string>
+    <string name="str_memory_link_description">Вы поделились воспоминанием из прошлого. Пришло время для шага в будущее! \nНе хотите отписаться от групп, куда вы давно не заходили?</string>
+    <string name="str_continue_button">Продолжить</string>
+    <string name="str_congratulations_headline">Поздравляем!</string>
 </resources>

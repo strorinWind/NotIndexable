@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -30,6 +31,7 @@ class BottomShareDialog: BottomSheetDialogFragment() {
 
     private lateinit var imageUri: Uri
     private var commentStringHint: String = ""
+    private var redirectToGroups: Boolean = false
 
     val args: BottomShareDialogArgs by navArgs()
 
@@ -53,6 +55,7 @@ class BottomShareDialog: BottomSheetDialogFragment() {
 
         imageUri = args.imageUri
         commentStringHint = args.hint
+        redirectToGroups = args.redirectToGroups
 
         val view = inflater.inflate(R.layout.share_bottom_sheet, container, false)
         closeButton = view.findViewById(R.id.close_button)
@@ -99,12 +102,7 @@ class BottomShareDialog: BottomSheetDialogFragment() {
             }
 
             override fun success(result: Int){
-                Toast.makeText(
-                    ctx,
-                    getString(R.string.str_success_posting_toast),
-                    Toast.LENGTH_SHORT
-                ).show()
-                dismissAllowingStateLoss()
+                onPhotoPosted(ctx)
             }
         }
 
@@ -115,6 +113,22 @@ class BottomShareDialog: BottomSheetDialogFragment() {
             ),
             callback
         )
+    }
+
+    private fun onPhotoPosted(ctx: Context) {
+        if (redirectToGroups) {
+            findNavController().navigateUp()
+            val action =
+                SharePostFragmentDirections.actionSharePostFragmentToLinkToMemoryFragment()
+            findNavController().navigate(action)
+        } else {
+            Toast.makeText(
+                ctx,
+                getString(R.string.str_success_posting_toast),
+                Toast.LENGTH_SHORT
+            ).show()
+            dismissAllowingStateLoss()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

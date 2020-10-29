@@ -83,12 +83,6 @@ class SharePostFragment: Fragment() {
         compositeDisposable.clear()
     }
 
-    private fun goToGroups() {
-        val action =
-            SharePostFragmentDirections.actionSharePostFragmentToGroupListFragment()
-        findNavController().navigate(action)
-    }
-
     private fun chooseImage(){
         val intent = Intent()
         intent.type = "image/*"
@@ -125,7 +119,7 @@ class SharePostFragment: Fragment() {
             val locale = getLocale(context)
             val date = SimpleDateFormat("dd MMM y", locale).format(Date(image.date * 1000))
             val hint = context?.getString(R.string.str_tell_about_memory, date) ?: ""
-            showBottomShareDialog(image.uri, hint)
+            showBottomShareDialog(image.uri, hint, true)
         } else {
             showBottomShareDialog(image.uri)
         }
@@ -151,9 +145,10 @@ class SharePostFragment: Fragment() {
         }
     }
 
-    private fun showBottomShareDialog(uri: Uri, hint: String = "") {
+    private fun showBottomShareDialog(uri: Uri, hint: String = "", redirectGroups: Boolean = false) {
         val action
                 = SharePostFragmentDirections.actionSharePostFragmentToBottomShareDialog(uri, hint)
+        action.redirectToGroups = redirectGroups
         findNavController().navigate(action)
     }
 
