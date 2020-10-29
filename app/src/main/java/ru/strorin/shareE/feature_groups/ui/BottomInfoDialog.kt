@@ -1,4 +1,4 @@
-package ru.strorin.shareE.ui.groups
+package ru.strorin.shareE.feature_groups.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import android.content.Intent
 import android.net.Uri
+import ru.strorin.shareE.feature_groups.VkGroupUi
 import ru.strorin.shareE.vk.requests.VkLastWallRequest
 import ru.strorin.shareE.vk.models.VkPostList
 
@@ -34,7 +35,8 @@ class BottomInfoDialog: BottomSheetDialogFragment() {
 
     companion object {
         fun newInstance(group: VkGroupUi): BottomInfoDialog {
-            val infoDialog = BottomInfoDialog()
+            val infoDialog =
+                BottomInfoDialog()
             infoDialog.group = group
             return infoDialog
         }

@@ -1,4 +1,4 @@
-package ru.strorin.shareE.image
+package ru.strorin.shareE.feature_share.image
 
 import android.content.ContentUris
 import android.content.Context
@@ -17,11 +17,18 @@ data class Image(val uri: Uri,
 object CameraHelper {
 
     fun getRandomCameraImageSingle(context: Context): Single<Image> {
-        return Single.fromCallable { getRandomCameraImage(context) }
+        return Single.fromCallable {
+            getRandomCameraImage(
+                context
+            )
+        }
     }
 
     fun getRandomCameraImage(context: Context): Image {
-        return getImageListFromCameraFolderOlderThan(context, 6).random()
+        return getImageListFromCameraFolderOlderThan(
+            context,
+            6
+        ).random()
     }
 
     private fun getImageListFromCameraFolderOlderThan(context: Context, days: Int): List<Image> {
@@ -70,7 +77,11 @@ object CameraHelper {
                 )
                 // Stores column values and the contentUri in a local object
                 // that represents the media file.
-                imageList += Image(contentUri, name, date)
+                imageList += Image(
+                    contentUri,
+                    name,
+                    date
+                )
             }
         }
         return imageList

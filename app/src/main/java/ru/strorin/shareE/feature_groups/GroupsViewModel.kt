@@ -1,4 +1,4 @@
-package ru.strorin.shareE.ui.groups
+package ru.strorin.shareE.feature_groups
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -12,6 +12,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import ru.strorin.shareE.feature_groups.ui.GroupListView
 import ru.strorin.shareE.vk.commands.VkLastActivityPostCommand
 import ru.strorin.shareE.vk.commands.VkUnsubscribeCommand
 import ru.strorin.shareE.vk.requests.VkGroupsRequest
@@ -157,7 +158,11 @@ class GroupsViewModel: ViewModel() {
             .map {
                 val list = ArrayList<VkGroupUi>()
                 for (item in itemList) {
-                    list.add(VkGroupUi.from(item))
+                    list.add(
+                        VkGroupUi.from(
+                            item
+                        )
+                    )
                 }
                 list
             }

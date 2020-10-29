@@ -1,4 +1,4 @@
-package ru.strorin.shareE.ui.groups
+package ru.strorin.shareE.feature_groups.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -15,10 +15,13 @@ import android.widget.ProgressBar
 import androidx.fragment.app.activityViewModels
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import ru.strorin.shareE.R
+import ru.strorin.shareE.feature_groups.GroupsViewModel
+import ru.strorin.shareE.feature_groups.VkGroupUi
 import ru.strorin.shareE.widgets.ButtonCounter
 
 
-class GroupListFragment: Fragment(), GroupListView {
+class GroupListFragment: Fragment(),
+    GroupListView {
 
     private lateinit var unsubscribeButton: ButtonCounter
     private lateinit var bottomPanel: LinearLayout
@@ -46,7 +49,11 @@ class GroupListFragment: Fragment(), GroupListView {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        adapter = GroupsAdapter(context, parentFragmentManager, itemClickListener)
+        adapter = GroupsAdapter(
+            context,
+            parentFragmentManager,
+            itemClickListener
+        )
     }
 
     override fun onStart() {
@@ -98,7 +105,8 @@ class GroupListFragment: Fragment(), GroupListView {
         groupListRecyclerView.adapter = adapter
     }
 
-    private val itemClickListener = object : GroupsAdapter.OnItemClickListener {
+    private val itemClickListener = object :
+        GroupsAdapter.OnItemClickListener {
         override fun onItemClick(group: VkGroupUi, number: Int) {
             model.setSelected(group, number)
             adapter.updateItem(number)

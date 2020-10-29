@@ -1,4 +1,4 @@
-package ru.strorin.shareE.ui.groups
+package ru.strorin.shareE.feature_groups
 
 import ru.strorin.shareE.vk.models.BaseVkGroup
 import ru.strorin.shareE.vk.models.VkGroup

@@ -1,4 +1,4 @@
-package ru.strorin.shareE.ui.groups
+package ru.strorin.shareE.feature_groups.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.strorin.shareE.R
+import ru.strorin.shareE.feature_groups.VkGroupUi
 
 class GroupsAdapter(
     context: Context,

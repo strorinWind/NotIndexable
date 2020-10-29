@@ -6,14 +6,31 @@
     app:startDestination="@id/sharePostFragment">
     <fragment
         android:id="@+id/sharePostFragment"
-        android:name="ru.strorin.shareE.ui.share.SharePostFragment"
+        android:name="ru.strorin.shareE.feature_share.ui.SharePostFragment"
         android:label="SharePostFragment" >
         <action
             android:id="@+id/action_sharePostFragment_to_groupListFragment"
             app:destination="@id/groupListFragment" />
+        <action
+            android:id="@+id/action_sharePostFragment_to_bottomShareDialog"
+            app:destination="@id/bottomShareDialog" />
     </fragment>
     <fragment
         android:id="@+id/groupListFragment"
-        android:name="ru.strorin.shareE.ui.groups.GroupListFragment"
+        android:name="ru.strorin.shareE.feature_groups.ui.GroupListFragment"
         android:label="GroupListFragment" />
+    <dialog
+        android:id="@+id/bottomShareDialog"
+        android:name="ru.strorin.shareE.feature_share.ui.BottomShareDialog"
+        android:label="BottomShareDialog" >
+        <argument
+            android:name="imageUri"
+            app:argType="android.net.Uri" />
+        <argument
+            android:name="hint"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_bottomShareDialog_to_sharePostFragment"
+            app:destination="@id/sharePostFragment" />
+    </dialog>
 </navigation>

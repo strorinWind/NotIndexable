@@ -1,4 +1,4 @@
-package ru.strorin.shareE.ui.share
+package ru.strorin.shareE.feature_share.ui
 
 import android.Manifest
 import android.app.Activity
@@ -24,8 +24,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.create_post_fragment.*
 import ru.strorin.shareE.BuildConfig
 import ru.strorin.shareE.R
-import ru.strorin.shareE.image.CameraHelper
-import ru.strorin.shareE.image.Image
+import ru.strorin.shareE.feature_share.image.CameraHelper
+import ru.strorin.shareE.feature_share.image.Image
 import ru.strorin.shareE.permission.PermissionUtils
 import ru.strorin.shareE.utils.getLocale
 import java.text.SimpleDateFormat
@@ -84,8 +84,8 @@ class SharePostFragment: Fragment() {
     }
 
     private fun goToGroups() {
-        val action = SharePostFragmentDirections
-            .actionSharePostFragmentToGroupListFragment()
+        val action =
+            SharePostFragmentDirections.actionSharePostFragmentToGroupListFragment()
         findNavController().navigate(action)
     }
 
@@ -152,10 +152,9 @@ class SharePostFragment: Fragment() {
     }
 
     private fun showBottomShareDialog(uri: Uri, hint: String = "") {
-        val bottomInfoDialog = BottomShareDialog.newInstance(uri, hint)
-        if (isAdded) {
-            bottomInfoDialog.show(parentFragmentManager, "BOTTOM")
-        }
+        val action
+                = SharePostFragmentDirections.actionSharePostFragmentToBottomShareDialog(uri, hint)
+        findNavController().navigate(action)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

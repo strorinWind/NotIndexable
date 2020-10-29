@@ -1,4 +1,6 @@
-package ru.strorin.shareE.ui.groups
+package ru.strorin.shareE.feature_groups.ui
+
+import ru.strorin.shareE.feature_groups.VkGroupUi
 
 interface GroupListView {
 

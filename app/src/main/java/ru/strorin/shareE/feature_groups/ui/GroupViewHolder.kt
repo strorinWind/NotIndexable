@@ -1,4 +1,4 @@
-package ru.strorin.shareE.ui.groups
+package ru.strorin.shareE.feature_groups.ui
 
 import android.content.Context
 import android.text.TextUtils
@@ -10,7 +10,7 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import ru.strorin.shareE.R
-import ru.strorin.shareE.ui.groups.VkGroupUi
+import ru.strorin.shareE.feature_groups.VkGroupUi
 
 
 class GroupViewHolder(
