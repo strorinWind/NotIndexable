@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.content.res.Configuration
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import ru.strorin.shareE.R
@@ -20,8 +21,7 @@ import ru.strorin.shareE.feature_groups.VkGroupUi
 import ru.strorin.shareE.widgets.ButtonCounter
 
 
-class GroupListFragment: Fragment(),
-    GroupListView {
+class GroupListFragment: Fragment(), GroupListView {
 
     private lateinit var unsubscribeButton: ButtonCounter
     private lateinit var bottomPanel: LinearLayout
@@ -91,6 +91,20 @@ class GroupListFragment: Fragment(),
     override fun updateUnsubscribeVisibility() {
         bottomPanel.visibility = if (model.getSelectedNumber() != 0) View.VISIBLE else View.GONE
         unsubscribeButton.setNumber(model.getSelectedNumber())
+    }
+
+    override fun setLoadingButton(loading: Boolean) {
+        unsubscribeButton.setLoading(loading)
+    }
+
+    override fun showToast(textId: Int) {
+        context?.let { ctx ->
+            Toast.makeText(
+                ctx,
+                getString(textId),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun setupRecyclerView(){

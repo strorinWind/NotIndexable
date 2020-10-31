@@ -1,6 +1,5 @@
 package ru.strorin.shareE.feature_groups
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKApiCallback
@@ -12,6 +11,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import ru.strorin.shareE.R
 import ru.strorin.shareE.feature_groups.ui.GroupListView
 import ru.strorin.shareE.vk.commands.VkLastActivityPostCommand
 import ru.strorin.shareE.vk.commands.VkUnsubscribeCommand
@@ -38,7 +38,7 @@ class GroupsViewModel: ViewModel() {
     }
 
     fun unsubscribeButtonClicked(view: GroupListView) {
-        //TODO: show progress
+        view.setLoadingButton(true)
         VK.execute(VkUnsubscribeCommand(selectedList.toIntArray()), object: VKApiCallback<List<Int>> {
             override fun success(result: List<Int>) {
 
@@ -51,12 +51,13 @@ class GroupsViewModel: ViewModel() {
                     }
                 }
                 selectedList.clear()
+                view.setLoadingButton(false)
                 view.setGroupsList(groupToShow)
             }
 
             override fun fail(error: Exception) {
-                //TODO: hadle error
-                Log.e("TESTTEST", error.toString())
+                view.setLoadingButton(false)
+                view.showToast(R.string.str_error_posting_toast)
             }
         })
     }
@@ -87,8 +88,7 @@ class GroupsViewModel: ViewModel() {
             }
 
             override fun fail(error: Exception) {
-                Log.d("TESTTEST", "ERROR")
-                //TODO: show state
+                view.showToast(R.string.str_error_posting_toast)
             }
         })
     }

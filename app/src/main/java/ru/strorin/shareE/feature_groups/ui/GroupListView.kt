@@ -9,4 +9,8 @@ interface GroupListView {
     fun setGroupsList(list: List<VkGroupUi>)
 
     fun updateUnsubscribeVisibility()
+
+    fun setLoadingButton(loading: Boolean)
+
+    fun showToast(textId: Int)
 }

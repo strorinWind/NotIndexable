@@ -5,7 +5,7 @@
 
     <string name="login">Login</string>
     <string name="str_share_photos_title">Делитесь фотографиями</string>
-    <string name="str_share_photos_subtitle">Поделитесь фотографией на стене, и добавьте к ней описание.</string>
+    <string name="str_share_photos_subtitle">Поделитесь фотографией на стене и добавьте к ней описание.</string>
     <string name="str_choose_photo_btn">Выбрать фото</string>
     <string name="str_share_memory">Поделиться воспоминанием</string>
     <string name="str_need_permission_title">Необходимо разрешение</string>

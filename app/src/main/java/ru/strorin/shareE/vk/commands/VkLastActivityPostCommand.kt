@@ -37,8 +37,6 @@ while(i < grous.length) {
 return r;
         """
 
-        Log.d("TESTTEST", code)
-
         val result = ArrayList<Long>()
         for (chunk in chunks) {
             val call = VKMethodCall.Builder()
